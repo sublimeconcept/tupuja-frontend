@@ -9,3 +9,9 @@ To work on this project:
 * Run `npm run build` to compile the TypeScript code in the `src` folder into ES5 code into the `app` folder.
 * Run `npm run serve` to start a local development web server. You can now access the application at [localhost:8080](http://localhost:8080/).
 
+Note: We should keep:
+
+node_modules
+dist
+
+out of the index, these are the files created by npm

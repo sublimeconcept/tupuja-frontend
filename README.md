@@ -1,4 +1,4 @@
-# Angular 2 Starter
+# TuPuja.com Angular2
 
 TuPuja.com Angular 2 starter project based on NPM, TypeScript, and Webpack.
 Used to show how to set up a project build workflow from scratch.

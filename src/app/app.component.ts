@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {BidService} from './bid/bid.service';
+import {UserService} from './user/user.service';
 import {ParseComponent} from './parse/parse.component';
 
 @Component({
@@ -9,12 +10,13 @@ import {ParseComponent} from './parse/parse.component';
 })
 export class AppComponent { 
   
-  constructor(private parseComponent: ParseComponent, private bidService: BidService){
+  constructor(private parseComponent: ParseComponent, private userService: UserService){
     parseComponent.initParseConnection('kvn+?QM6h)^5m.4t','http://localhost:1337/parse');
-    bidService.getBids()
-      .then((results) => console.log(JSON.stringify(results)))
-      .catch((error) => console.error(error));
-      
+    userService.getUserById('cantwait')
+      .then((user) => {
+        console.log(user)
+      })
+      .catch((err) => console.error(err));
   }
 
  }

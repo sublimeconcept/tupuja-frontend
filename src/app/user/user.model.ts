@@ -2,7 +2,7 @@ export interface UserModel {
     objectId: string;
     firstName: string;
     lastName: string;
-    login: string;
+    username: string;
     email: string;
     phone: string;
     address: string;

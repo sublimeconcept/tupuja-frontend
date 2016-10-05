@@ -1,9 +1,7 @@
-import {Injectable} from '@angular/core';
 import {ParseComponent} from '../parse/parse.component';
 import {Deferred} from '../utils/util.deferred';
 import {UserModel} from './user.model';
 
-@Injectable()
 export class UserService extends ParseComponent{
 
     private User;
@@ -31,9 +29,9 @@ export class UserService extends ParseComponent{
 
     public getUserById(id: string): Promise<UserModel>{
         let deferred = new Deferred();
-
-        this.User
-            .get(id)
+        let q = new this.Parse.Query(this.User);
+        q.equalTo('username', id);
+        q.find()            
                 .then((data)=>{
                     deferred.resolve(data);
                 },

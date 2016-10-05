@@ -1,6 +1,6 @@
-export class ParseService {
+export class ParseComponent {
     
-    private Parse = require('parse').Parse;;
+    protected Parse = require('parse').Parse;;
     
     constructor(){
         

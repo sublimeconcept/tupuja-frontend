@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {ParseService} from '../parse/parse.service';
+import {ParseComponent} from '../parse/parse.component';
 import {Deferred} from '../utils/util.deferred';
 
 
@@ -11,13 +11,11 @@ import {Deferred} from '../utils/util.deferred';
 @Injectable()
 export class BidService {
 
-    private bids;
-
     private Bid;
     private Parse;
 
-    constructor(private parseService: ParseService){
-        this.Parse = parseService.getParse();
+    constructor(private parseComponent: ParseComponent){
+        this.Parse = parseComponent.getParse();
         this.Bid = this.Parse.Object.extend("Bid");//create Bid object   
     }
 

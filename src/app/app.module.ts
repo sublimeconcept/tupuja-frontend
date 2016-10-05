@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
-import {ParseService} from './parse/parse.service';
+import {ParseComponent} from './parse/parse.component';
 import {BidService} from './bid/bid.service';
 
 
 @NgModule({
   imports: [BrowserModule],
-  providers: [BidService, ParseService],
+  providers: [BidService, ParseComponent],
   declarations: [AppComponent],
   bootstrap: [AppComponent]
 })

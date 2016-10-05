@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import {ParseService} from '../parse/parse.service';
-import {Deferred} from '../utils/util.deferred';
-
+import { ParseService } from '../parse/parse.service';
+import { Deferred } from '../utils/util.deferred';
 
 /**
  * this is important otherwise trying
@@ -10,8 +9,6 @@ import {Deferred} from '../utils/util.deferred';
  */
 @Injectable()
 export class BidService {
-
-    private bids;
 
     private Bid;
     private Parse;
@@ -26,6 +23,7 @@ export class BidService {
      */
     public getBids(): Promise<any>{
         let deferred = new Deferred();
+
         let bid = new this.Bid(); //instantiate the object
         let q = new this.Parse.Query(bid); //create query object
         q.find().then( (results) => {

@@ -1,20 +1,19 @@
 import { Injectable } from '@angular/core';
-import { ParseService } from '../parse/parse.service';
-import { Deferred } from '../utils/util.deferred';
+import {ParseWrapper} from '../parse/parse.wrapper';
+import {Deferred} from '../utils/util.deferred';
+
 
 /**
  * this is important otherwise trying
  * to inject one service into another
  * would cause: missing param error
  */
-@Injectable()
-export class BidService {
+export class BidService extends ParseWrapper{
 
     private Bid;
-    private Parse;
 
-    constructor(private parseService: ParseService){
-        this.Parse = parseService.getParse();
+    constructor(){
+        super();
         this.Bid = this.Parse.Object.extend("Bid");//create Bid object   
     }
 

@@ -1,15 +1,11 @@
-import { Injectable } from '@angular/core'
-import { ParseService } from '../parse/parse.service';
+import { ParseWrapper } from '../parse/parse.wrapper';
 import { Deferred } from '../utils/util.deferred';
 
-@Injectable()
-
-export class AuctionService {
+export class AuctionService extends ParseWrapper{
     private Auction;
-    private Parse;
 
-    constructor(private parseService: ParseService){
-        this.Parse = parseService.getParse();
+    constructor(){
+        super();
         this.Auction = this.Parse.Object.extend("Auction");
     }
 

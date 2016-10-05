@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { ParseService } from './parse/parse.service';
+import {BidService} from './bid/bid.service';
+import {ParseWrapper} from './parse/parse.wrapper';
 
 @Component({
   selector: 'my-app',
@@ -8,8 +9,11 @@ import { ParseService } from './parse/parse.service';
 })
 export class AppComponent { 
   
-  constructor(private parseService: ParseService){
-    parseService.initParseConnection('kvn+?QM6h)^5m.4t','http://localhost:1337/parse');
+  constructor(private parseComponent: ParseWrapper, private bidService: BidService){
+    parseComponent.initParseConnection('kvn+?QM6h)^5m.4t','http://localhost:1337/parse');
+    bidService.getBids()
+      .then((results) => console.log(JSON.stringify(results)))
+      .catch((error) => console.error(error));
   }
 
  }

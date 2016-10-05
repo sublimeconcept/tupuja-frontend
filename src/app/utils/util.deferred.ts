@@ -10,4 +10,8 @@ export class Deferred<T> {
       this.reject  = reject;
     });
   }
+
+  public toPromise(){
+    return this.promise;
+  }
 }

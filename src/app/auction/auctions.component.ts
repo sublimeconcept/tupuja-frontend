@@ -3,13 +3,7 @@ import { AuctionService } from './auction.service'
 
 @Component({
     selector: "auctions",
-    template: `
-        <ul>
-            <li *ngFor="let auction of auctions">
-                {{auction.attributes.name}}: {{auction.attributes.starting_price}}
-            </li>
-        </ul>
-        `,
+    templateUrl: "auctions.template",
     providers: [AuctionService]
 })
 export class AuctionsComponent {

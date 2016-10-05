@@ -3,7 +3,6 @@ import {Deferred} from '../utils/util.deferred';
 import {UserModel} from './user.model';
 
 export class UserService extends ParseWrapper{
-
     private User;
 
     constructor(){
@@ -29,9 +28,9 @@ export class UserService extends ParseWrapper{
 
     public getUserById(id: string){
         let deferred = new Deferred();
-
-        this.User
-            .get(id)
+        let q = new this.Parse.Query(this.User);
+        q.equalTo('username', id);
+        q.find()            
                 .then((data)=>{
                     deferred.resolve(data);
                 },

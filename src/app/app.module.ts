@@ -7,11 +7,12 @@ import { Deferred } from './utils/util.deferred';
 
 import {ParseWrapper} from './parse/parse.wrapper';
 import {BidService} from './bid/bid.service';
+import {UserService} from './user/user.service';
 
 
 @NgModule({
   imports: [BrowserModule],
-  providers: [BidService, ParseWrapper, AuctionService],
+  providers: [BidService, ParseWrapper, AuctionService, UserService],
   declarations: [AppComponent, AuctionsComponent],
   bootstrap: [AppComponent]
 })

@@ -9,9 +9,12 @@ import {ParseService} from './parse/parse.service';
 })
 export class AppComponent { 
   
-  constructor(private parseService: ParseService, private bid: BidService){
+  constructor(private parseService: ParseService, private bidService: BidService){
     parseService.initParseConnection('kvn+?QM6h)^5m.4t','http://localhost:1337/parse');
-    bid.getBids();
+    bidService.getBids()
+      .then((results) => console.log(JSON.stringify(results)))
+      .catch((error) => console.error(error));
+      
   }
 
  }

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {ParseService} from '../parse/parse.service';
+import {Deferred} from '../utils/util.deferred';
 
 
 /**
@@ -23,18 +24,18 @@ export class BidService {
     /**
      * Get all Bids from Parse Server
      */
-    public getBids(): any{
-        
-        var bid = new this.Bid(); //instantiate the object
-        var q = new this.Parse.Query(bid); //create query object
-        q.find().then( (results) => {//it returns a promise
-            for(var i = 0; i < results.length; i++){
-                console.log("Bid#", results[i].id);
-            }
+    public getBids(): Promise<any>{
+        let deferred = new Deferred();
+        let bid = new this.Bid(); //instantiate the object
+        let q = new this.Parse.Query(bid); //create query object
+        q.find().then( (results) => {
+            deferred.resolve(results);
         },
-        (result,error) => {
-            console.error(result, error);//error
+        (error) => {
+            deferred.reject(error);
         });
+
+        return deferred.promise;
     }
 
 }

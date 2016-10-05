@@ -3,7 +3,7 @@ export class ParseWrapper {
     protected Parse = require('parse').Parse;;
     
     constructor(){
-        
+        this.initParseConnection('kvn+?QM6h)^5m.4t','http://localhost:1337/parse');
     }
 
     /**
@@ -12,13 +12,6 @@ export class ParseWrapper {
     public initParseConnection(apiKey: string, serverUrl: string): void{
         this.Parse.initialize(apiKey);
         this.Parse.serverURL = serverUrl;
-    }
-
-    /**
-     * Return instance of Param object
-     */
-    public getParse(): any{
-        return this.Parse;
     }
 
 

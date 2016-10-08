@@ -10,7 +10,6 @@ import {UserService} from './user/user.service';
 })
 export class AppComponent { 
   
-
   constructor(private parse: ParseWrapper, private userService: UserService){
     parse.initParseConnection('kvn+?QM6h)^5m.4t','http://localhost:1337/parse');
     userService.getUserById('cantwait')
@@ -18,6 +17,6 @@ export class AppComponent {
         console.log(user)
       })
       .catch((err) => console.error(err));
-  }
+    }
 
  }

@@ -10,11 +10,9 @@ import {UserService} from './user/user.service';
 export class AppComponent { 
   
   constructor(private userService: UserService){
-    userService.getUserById('cantwait')
-      .then((user) => {
-        console.log(user)
-      })
-      .catch((err) => console.error(err));
+    userService.getAllUsers()
+      .then(users => console.log(users))
+      .catch(err => console.error(err));
   }
 
  }

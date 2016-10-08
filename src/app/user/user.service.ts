@@ -13,7 +13,6 @@ export class UserService extends ParseComponent{
 
     public save(user: UserModel): Promise<any> {
         let deferred = new Deferred();
-
         this.User
             .save(user)
                 .then((data)=> {
@@ -39,6 +38,16 @@ export class UserService extends ParseComponent{
                     deferred.reject(err);
                 });
 
+        return deferred.toPromise();
+    }
+
+    public getAllUsers(){
+        let deferred = new Deferred();
+
+        let q = new this.Parse.Query(this.User);
+        q.find()
+            .then(users => deferred.resolve(users),
+                err => deferred.reject(err));
         return deferred.toPromise();
     }
 

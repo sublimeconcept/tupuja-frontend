@@ -3,7 +3,7 @@ import { AuctionService } from './auction.service'
 
 @Component({
     selector: "auction",
-    templateUrl: "auctions.template",
+    templateUrl: "./auction.component.html",
 })
 export class AuctionComponent implements OnInit, OnDestroy{
     

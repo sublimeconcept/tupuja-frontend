@@ -4,7 +4,7 @@ import {ProfileComponent} from './profile/profile.component';
 
 export const routing = RouterModule.forRoot([
    {
-        path:'home',
+        path:'',
         component: HomeComponent
     },
     {
@@ -13,7 +13,7 @@ export const routing = RouterModule.forRoot([
     },
     {
         path: '',
-        redirectTo: '/home',
+        redirectTo: '/',
         pathMatch: 'full'
   }
 ]);

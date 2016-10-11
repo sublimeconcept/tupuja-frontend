@@ -3,7 +3,7 @@ export class ParseWrapper {
     protected Parse = require('parse').Parse;;
     
     constructor(){
-        this.initParseConnection('kvn+?QM6h)^5m.4t','http://localhost:1337/parse');
+        //this.initParseConnection('kvn+?QM6h)^5m.4t','http://localhost:1337/parse');
     }
 
     /**

@@ -17,7 +17,7 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['', '.js', '.ts', '.html', '.css']
+    extensions: ['', '.js', '.ts', '.html', '.css', '.scss']
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -28,6 +28,7 @@ module.exports = {
         environment: JSON.stringify(process.env.APP_ENVIRONMENT || 'development')
       }
     })
+
   ]
   
 };

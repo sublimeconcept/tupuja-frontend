@@ -9,12 +9,8 @@ import {Deferred} from '../utils/util.deferred';
  * would cause: missing param error
  */
 export class BidService extends ParseWrapper{
-
-    private Bid;
-
     constructor(){
-        super();
-        this.Bid = this.Parse.Object.extend("Bid");//create Bid object   
+        super("Bid");
     }
 
     /**
@@ -23,9 +19,7 @@ export class BidService extends ParseWrapper{
     public getBids(): Promise<any>{
         let deferred = new Deferred();
 
-        let bid = new this.Bid(); //instantiate the object
-        let q = new this.Parse.Query(bid); //create query object
-        q.find().then( (results) => {
+        super.query().find().then( (results) => {
             deferred.resolve(results);
         },
         (error) => {

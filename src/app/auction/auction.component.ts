@@ -10,7 +10,7 @@ export class AuctionComponent implements OnInit, OnDestroy{
     @Input() private auction: any;
 
     constructor() {
-        
+
     }
 
     public ngOnInit(){

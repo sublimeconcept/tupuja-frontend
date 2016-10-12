@@ -6,7 +6,7 @@ export class UserService extends ParseWrapper{
     private User;
 
     constructor(){
-        super();
+        super("User");
         this.User = new this.Parse.User();
     }
 
@@ -27,8 +27,7 @@ export class UserService extends ParseWrapper{
 
     public getUserById(id: string){
         let deferred = new Deferred();
-        let q = new this.Parse.Query(this.User);
-        q.equalTo('username', id);
+        let q = this.query().equalTo('username', id);
         q.find()            
                 .then((data)=>{
                     deferred.resolve(data);

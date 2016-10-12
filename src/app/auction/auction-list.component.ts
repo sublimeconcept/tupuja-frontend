@@ -13,15 +13,9 @@ export class AutionListComponent {
         console.log("fetching auctions")
         this.auctionService.getAuctions()
             .then((auctions) => {
-                this.extractAuctions(auctions);
-                console.log(this.auctions)
+                this.auctions = this.auctionService.extractData(auctions);
             })
             .catch((error) => console.error(error))
     }
 
-    extractAuctions(_auctions: any) {
-        for (let auctionData of _auctions) {
-            this.auctions.push(auctionData.attributes);
-        }
-    }
 }

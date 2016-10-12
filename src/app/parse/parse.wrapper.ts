@@ -20,6 +20,14 @@ export class ParseWrapper {
         return this.klassModel;
     }
 
+    public extractData(_data: any): any[] {
+        let _collection: any[] = [];
+        for (let _dataObject of _data) {
+            _collection.push(_dataObject.attributes);
+        }
+        return _collection;
+    }
+
     /**
      * Initialize the parameters connection here.
      */

@@ -2,7 +2,6 @@ import { ParseWrapper } from '../parse/parse.wrapper';
 import { Deferred } from '../utils/util.deferred';
 
 export class AuctionService extends ParseWrapper{
-    private Auction;
     constructor(){
         super("Auction");
     }

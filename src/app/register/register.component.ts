@@ -20,11 +20,12 @@ export class RegisterComponent {
         console.log("model")
         this.model.username = this.model.email;
         console.log(this.model);
-        this.userService.save(this.model).then((user) => {
-                console.log("received user = " + user);
-            })
-            .catch((error) => console.error("error = " + error))
+        // this.userService.save(this.model).then((user) => {
+        //         console.log("received user = " + user);
+        //     })
+        //     .catch((error) => console.error("error = " + error))
         // this.userService.create(this.model)
+        this.userService.create(this.model)
         //     .subscribe(
         //         data => {
         //             // set success message and pass true paramater to persist the message after redirecting to the login page

@@ -1,7 +1,7 @@
 <div class="col-md-6 col-md-offset-3">
     <h2>Iniciar Sesión</h2>
     <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
             <label for="email">Correo Electrónico</label>
             <input type="text" class="form-control" name="email" [(ngModel)]="model.email" #email="ngModel" required />
             <div *ngIf="f.submitted && !email.valid" class="help-block">Correo Electrónico es requerido</div>

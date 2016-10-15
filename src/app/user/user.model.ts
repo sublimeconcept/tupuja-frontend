@@ -13,5 +13,4 @@ export interface UserModel {
     updatedAt: Date;
     createdAt: Date;
     emailVerified: boolean;
-
 }

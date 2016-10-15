@@ -18,7 +18,12 @@ export class RegisterComponent {
     register() {
         this.loading = true;
         console.log("model")
+        this.model.username = this.model.email;
         console.log(this.model);
+        this.userService.save(this.model).then((user) => {
+                console.log("received user = " + user);
+            })
+            .catch((error) => console.error("error = " + error))
         // this.userService.create(this.model)
         //     .subscribe(
         //         data => {

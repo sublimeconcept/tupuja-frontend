@@ -5,5 +5,10 @@ import {Component} from '@angular/core';
     templateUrl: './navbar.component.html',
 })
 export class NavbarComponent {
+    currentUser;
+    constructor() {
+        this.currentUser = localStorage.getItem('currentUser');
+        console.log("navbar loading current = " + this.currentUser);
+    }
 
 }

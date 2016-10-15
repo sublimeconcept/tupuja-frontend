@@ -18,20 +18,13 @@ export class LoginComponent implements OnInit {
  
     ngOnInit() {
         // reset login status
-        // this.authenticationService.logout();
+        this.authenticationService.logout();
     }
  
     login() {
         // this.loading = true;
         console.log(this.model);
-        // this.authenticationService.login(this.model.username, this.model.password)
-            // .subscribe(
-            //     data => {
-            //         this.router.navigate(['/']);
-            //     },
-            //     error => {
-            //         this.alertService.error(error);
-            //         this.loading = false;
-            //     });
+        let res = this.authenticationService.login(this.model.username, this.model.password)
+        console.log("res = " + res);
     }
 }

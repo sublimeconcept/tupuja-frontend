@@ -10,6 +10,7 @@ export class AuthenticationService {
     login(username, password) {
         this.userService.logIn(username, password).then(
             (user) => {
+                console.log("user = " + user);
                 localStorage.setItem('currentUser', user);
             })
             .catch((error) => console.error(error))

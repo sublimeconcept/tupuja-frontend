@@ -30,9 +30,11 @@ export class UserService extends ParseWrapper{
         this.User
             .logIn(username, password, {
                 success: function(user) {
+                    console.log("we are here user = " + user);
                     deferred.resolve(user);
                 },
                 error: function(user, error) {
+                    console.log("we are here error = " + error);
                     deferred.reject(error);
                 }
             });

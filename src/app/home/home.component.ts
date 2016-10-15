@@ -10,7 +10,6 @@ export class HomeComponent {
 
     constructor(private userService: UserService){
         this.currentUser = localStorage.getItem('currentUser');
-        console.log("here loading current = " + this.currentUser);
     }
 
 }

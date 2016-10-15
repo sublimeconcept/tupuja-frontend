@@ -25,6 +25,20 @@ export class UserService extends ParseWrapper{
         return deferred.toPromise();
     }
 
+    public logIn(username, password): Promise<any> {
+        let deferred = new Deferred();
+        this.User
+            .logIn(username, password, {
+                success: function(user) {
+                    deferred.resolve(user);
+                },
+                error: function(user, error) {
+                    deferred.reject(error);
+                }
+            });
+        return deferred.toPromise();
+    }
+
     public getUserById(id: string){
         let deferred = new Deferred();
         let q = this.query().equalTo('username', id);

@@ -12,11 +12,33 @@ import {NavbarComponent} from './navbar/navbar.component';
 import {HomeComponent} from './home/home.component';
 import {ProfileComponent} from './profile/profile.component';
 import {AutionListComponent} from './auction/auction-list.component';
+import {CountdownComponent} from './generics/countdown.component';
+
+const declarations = [
+  AppComponent, 
+  AuctionComponent, 
+  NavbarComponent, 
+  HomeComponent, 
+  ProfileComponent,
+  AutionListComponent,
+  CountdownComponent
+];
+
+const imports = [
+  BrowserModule,
+  routing
+];
+
+const providers = [
+  BidService, 
+  AuctionService, 
+  UserService
+]
 
 @NgModule({
-  imports: [BrowserModule, routing],
-  providers: [BidService, AuctionService, UserService],
-  declarations: [AppComponent, AuctionComponent, NavbarComponent,HomeComponent, ProfileComponent,AutionListComponent],
+  imports: imports,
+  providers: providers,
+  declarations: declarations,
   bootstrap: [AppComponent]
 })
 export class AppModule {

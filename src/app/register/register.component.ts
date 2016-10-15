@@ -19,7 +19,7 @@ export class RegisterComponent {
         this.loading = true;
         console.log("model")
         console.log(this.model);
-        // this.userService.create(this.model)
+        this.userService.create(this.model)
         //     .subscribe(
         //         data => {
         //             // set success message and pass true paramater to persist the message after redirecting to the login page

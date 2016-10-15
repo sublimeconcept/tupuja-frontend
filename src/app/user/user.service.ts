@@ -7,12 +7,11 @@ export class UserService extends ParseWrapper{
 
     constructor(){
         super("User");
-        this.User = new this.Parse.User();
     }
 
     public save(user: UserModel): Promise<any> {
         let deferred = new Deferred();
-        this.User
+        this.model()
             .save(user)
                 .then((data)=> {
                     deferred.resolve(data);
@@ -27,7 +26,7 @@ export class UserService extends ParseWrapper{
 
     public logIn(username, password): Promise<any> {
         let deferred = new Deferred();
-        this.User
+        this.model()
             .logIn(username, password, {
                 success: function(user) {
                     deferred.resolve(user);
@@ -62,6 +61,39 @@ export class UserService extends ParseWrapper{
                 err => deferred.reject(err));
         return deferred.toPromise();
     }
+
+    public create(userModel: UserModel): Promise<any>{
+        let user = this.model();
+
+        user.set("username", userModel.username);
+        user.set("password", userModel.password);
+        user.set("email", userModel.email);
+        user.set("firstName", userModel.firstName);
+        user.set("lastName", userModel.lastName);
+
+        return user.signUp()
+            .then((user)=>{
+                console.log("User successfully created: ", user);
+            },
+            (err)=>{
+                console.error("Error creating user: ", err);
+            });
+    }
+
+    /**
+     * Returns an object
+     */
+    public getCurrentUser(): Promise<any>{
+       return this.model().current();
+    }
+
+    /**
+     * Kills the session
+     */
+    public logOut(): any{
+        return this.model().logOut();
+    }
+    
 
 
 }

@@ -3,7 +3,6 @@ import {Deferred} from '../utils/util.deferred';
 import {UserModel} from './user.model';
 
 export class UserService extends ParseWrapper{
-    private User;
 
     constructor(){
         super("User");
@@ -26,17 +25,15 @@ export class UserService extends ParseWrapper{
 
     public logIn(username, password): Promise<any> {
         let deferred = new Deferred();
+        debugger;
         this.model()
-            .logIn(username, password, {
-                success: function(user) {
-                    console.log("we are here user = " + user);
+            .logIn(username, password)
+                .then((user) => {
                     deferred.resolve(user);
                 },
-                error: function(user, error) {
-                    console.log("we are here error = " + error);
-                    deferred.reject(error);
-                }
-            });
+                (err)=>{                    
+                    deferred.reject(err);
+                });
         return deferred.toPromise();
     }
 
@@ -57,7 +54,7 @@ export class UserService extends ParseWrapper{
     public getAllUsers(){
         let deferred = new Deferred();
 
-        let q = new this.Parse.Query(this.User);
+        let q = new this.Parse.Query(this.model());
         q.find()
             .then(users => deferred.resolve(users),
                 err => deferred.reject(err));
@@ -92,7 +89,7 @@ export class UserService extends ParseWrapper{
     /**
      * Kills the session
      */
-    public logOut(): any{
+    public logOut(): Promise<any>{
         return this.model().logOut();
     }
     

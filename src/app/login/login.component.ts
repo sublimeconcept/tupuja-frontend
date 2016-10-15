@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthenticationService } from '../authentication/authentication.service';
-import { AlertService } from '../alert/alert.service';
+import { Component, OnInit }        from '@angular/core';
+import { Router }                   from '@angular/router';
+import { AuthenticationService }    from '../authentication/authentication.service';
+import { AlertService }             from '../alert/alert.service';
+import {NgForm}                     from '@angular/forms';
  
 @Component({
     templateUrl: 'login.component.html'
@@ -18,13 +19,13 @@ export class LoginComponent implements OnInit {
  
     ngOnInit() {
         // reset login status
-        this.authenticationService.logout();
     }
  
-    login() {
+    login(form: NgForm) {
         // this.loading = true;
         console.log(this.model);
         let res = this.authenticationService.login(this.model.username, this.model.password)
         console.log("res = " + res);
+        form.resetForm();
     }
 }

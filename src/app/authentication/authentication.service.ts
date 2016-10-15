@@ -11,14 +11,11 @@ export class AuthenticationService {
         this.userService.logIn(username, password).then(
             (user) => {
                 console.log("user = " + user);
-                localStorage.setItem('currentUser', user);
             })
-            .catch((error) => console.error(error))
+            .catch((error) => console.error(JSON.stringify(error)))
         }
  
     logout() {
-        // ToDo: Implement parse logout logic
-        // remove user from local storage to log user out
-        localStorage.removeItem('currentUser');
+        this.userService.logOut();
     }
 }

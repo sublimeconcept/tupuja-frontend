@@ -17,7 +17,6 @@ export class RegisterComponent {
         private userService: UserService) { }
  
     register(f: NgForm) {
-        debugger;
         this.loading = true;
         console.log("model")
         this.model.username = this.model.email;

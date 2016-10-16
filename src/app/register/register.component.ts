@@ -14,12 +14,12 @@ export class RegisterComponent {
  
     constructor(
         private router: Router,
-        private userService: UserService) { }
+        private userService: UserService,
+        private alertService: AlertService) { }
  
     register(f: NgForm) {
         this.loading = true;
-        console.log("model")
-        this.model.username = this.model.email;
+        console.log("model = " + this.model);
         this.userService.create(this.model)
             .then((user)=>{
                     //for now lets just use logout 
@@ -31,10 +31,10 @@ export class RegisterComponent {
                     f.resetForm();
                     this.router.navigate(['/login']);
                 }
-            )
-            .catch((err)=>{
-                console.error(err);
-                f.resetForm();
+            ).catch((error) => {
+                this.alertService.error(error.message);
+                console.error(error);
+                this.loading = false;
             });
         
     }

@@ -25,7 +25,6 @@ export class UserService extends ParseWrapper{
 
     public logIn(username, password): Promise<UserModel> {
         let deferred = new Deferred();
-        
         this.Parse.User
             .logIn(username, password)
                 .then((user) => {
@@ -63,19 +62,22 @@ export class UserService extends ParseWrapper{
 
     public create(userModel: UserModel): Promise<any>{
         let user = this.model();
-
+        let deferred = new Deferred();
         user.set("username", userModel.username);
         user.set("password", userModel.password);
         user.set("email", userModel.email);
         user.set("firstName", userModel.firstName);
         user.set("lastName", userModel.lastName);
-        return user.signUp()
+        user.signUp()
             .then((user)=>{
                 console.log("User successfully created: ", user.objectId);
+                deferred.resolve(user);
             },
             (err)=>{
                 console.error("Error creating user: ", err);
+                deferred.reject(err);
             });
+        return deferred.toPromise();
     }
 
     /**

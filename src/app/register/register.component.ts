@@ -20,6 +20,7 @@ export class RegisterComponent {
     register(f: NgForm) {
         this.loading = true;
         console.log("model = " + this.model);
+        this.model.username = this.model.email;
         this.userService.create(this.model)
             .then((user)=>{
                     //for now lets just use logout 

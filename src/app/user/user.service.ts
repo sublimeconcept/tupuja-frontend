@@ -26,7 +26,7 @@ export class UserService extends ParseWrapper{
     public logIn(username, password): Promise<any> {
         let deferred = new Deferred();
         debugger;
-        this.model()
+        this.Parse.User
             .logIn(username, password)
                 .then((user) => {
                     deferred.resolve(user);
@@ -83,14 +83,14 @@ export class UserService extends ParseWrapper{
      * Returns an object
      */
     public getCurrentUser(): Promise<any>{
-       return this.model().current();
+       return this.Parse.User.current();
     }
 
     /**
      * Kills the session
      */
-    public logOut(): Promise<any>{
-        return this.model().logOut();
+    public logOut(): any{
+        return this.Parse.User.logOut();
     }
     
 

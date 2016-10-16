@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component }    from '@angular/core';
+import { Router }       from '@angular/router';
 import { AlertService } from '../alert/alert.service';
-import { UserService } from '../user/user.service';
+import { UserService }  from '../user/user.service';
+import {NgForm}         from '@angular/forms';
  
 @Component({
     templateUrl: 'register.component.html'
@@ -15,26 +16,22 @@ export class RegisterComponent {
         private router: Router,
         private userService: UserService) { }
  
-    register() {
+    register(f: NgForm) {
+        debugger;
         this.loading = true;
         console.log("model")
         this.model.username = this.model.email;
-        console.log(this.model);
-        // this.userService.save(this.model).then((user) => {
-        //         console.log("received user = " + user);
-        //     })
-        //     .catch((error) => console.error("error = " + error))
-        // this.userService.create(this.model)
         this.userService.create(this.model)
-        //     .subscribe(
-        //         data => {
-        //             // set success message and pass true paramater to persist the message after redirecting to the login page
-        //             this.alertService.success('Registration successful', true);
-        //             this.router.navigate(['/login']);
-        //         },
-        //         error => {
-        //             this.alertService.error(error);
-        //             this.loading = false;
-        //         });
+            .then((user)=>{
+                    console.log("current: ", this.userService.getCurrentUser());
+                    f.resetForm();
+                    this.router.navigate(['/login']);
+                }
+            )
+            .catch((err)=>{
+                console.error(err);
+                f.resetForm();
+            });
+        
     }
 }

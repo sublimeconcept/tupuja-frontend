@@ -7,7 +7,7 @@ export class ParseWrapper {
 
     constructor(_klassName : string){
         console.log("initializing for " + _klassName);
-        this.initParseConnection('kvn+?QM6h)^5m.4t','https://tupuja-backend-app.herokuapp.com/parse');
+        this.initParseConnection('P1+F97wQcL4C0iTr','https://tupuja-backend-app.herokuapp.com/parse');
         if (_klassName == 'User'){
             this.klassModel = new this.Parse.User();
         }else{

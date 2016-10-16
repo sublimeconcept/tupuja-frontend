@@ -23,7 +23,12 @@ export class RegisterComponent {
         this.model.username = this.model.email;
         this.userService.create(this.model)
             .then((user)=>{
-                    console.log("current: ", this.userService.getCurrentUser());
+                    //for now lets just use logout 
+                    //because at this point we don't want to persist
+                    //any session data on the browser nor the server
+                    //because we are asking the user to 
+                    //verify its email
+                    this.userService.logOut();
                     f.resetForm();
                     this.router.navigate(['/login']);
                 }

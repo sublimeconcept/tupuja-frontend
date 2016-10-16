@@ -69,7 +69,6 @@ export class UserService extends ParseWrapper{
         user.set("email", userModel.email);
         user.set("firstName", userModel.firstName);
         user.set("lastName", userModel.lastName);
-
         return user.signUp()
             .then((user)=>{
                 console.log("User successfully created: ", user);

@@ -28,7 +28,7 @@ export class UserService extends ParseWrapper{
         this.Parse.User
             .logIn(username, password)
                 .then((user) => {
-                    deferred.resolve(this.extractData(user));
+                    deferred.resolve(user);
                 },
                 (err)=>{                    
                     deferred.reject(err);
@@ -83,8 +83,17 @@ export class UserService extends ParseWrapper{
     /**
      * Returns an object
      */
-    public getCurrentUser(): Promise<any>{
+    public getCurrentUser(): any{
        return this.Parse.User.current();
+    }
+
+    public currentUser(): any {
+        console.log("current user is " + this.getCurrentUser())
+        if (this.getCurrentUser()) {
+            return this.getCurrentUser().attributes;
+        } else {
+            return undefined;
+        }
     }
 
     /**

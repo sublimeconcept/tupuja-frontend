@@ -30,7 +30,8 @@ export class RegisterComponent {
                     //verify its email
                     this.userService.logOut();
                     f.resetForm();
-                    this.router.navigate(['/login']);
+                    this.alertService.success('Registration successful, please verify your email address.', true);
+                    this.router.navigate(['/']);
                 }
             ).catch((error) => {
                 this.alertService.error(error.message);

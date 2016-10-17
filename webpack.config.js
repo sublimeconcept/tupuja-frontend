@@ -17,7 +17,7 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['', '.js', '.ts', '.html', '.css', '.scss']
+    extensions: ['', '.js', '.ts', '.html', '.css']
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -29,6 +29,10 @@ module.exports = {
       }
     })
 
-  ]
+  ],
+  devServer: {
+    historyApiFallback: true
+  }
+
   
 };

@@ -6,7 +6,7 @@ import { LoginComponent } from './login/login.component';
 
 export const routing = RouterModule.forRoot([
    {
-        path:'',
+        path:'home',
         component: HomeComponent
     },
     {
@@ -21,7 +21,7 @@ export const routing = RouterModule.forRoot([
     },
     {
         path: '',
-        redirectTo: '/',
+        redirectTo: '/home',
         pathMatch: 'full'
   }
 ]);

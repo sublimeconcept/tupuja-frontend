@@ -1,12 +1,16 @@
-import {Component}      from '@angular/core';
-import {UserService}    from '../user/user.service';
-import {AlertService}   from '../alert/alert.service';
+import {Component, OnInit, OnDestroy}       from '@angular/core';
+import {UserService}                        from '../user/user.service';
+import {AlertService}                       from '../alert/alert.service';
+import { Subscription }                     from 'rxjs/Subscription';
 
 @Component({
     selector: 'navbar',
     templateUrl: './navbar.component.html',
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit, OnDestroy {
+
+    private userSignedIn: boolean = false;
+    subscription: Subscription;
     
     constructor(private _userService: UserService, private alertService: AlertService) {
     }
@@ -18,12 +22,28 @@ export class NavbarComponent {
         }
     }
 
+    public ngOnInit(){
+        this.determineUserSignedIn();
+    }
+
+    public ngOnDestroy(){
+        this.subscription.unsubscribe();
+    }
+
     public currentUser() {
         return this._userService.currentUser();
     }
 
-    public userSignedIn() {
-        return this._userService.getCurrentUser();
+    public determineUserSignedIn(){
+        this.subscription = this._userService.userLoggedIn.subscribe( 
+                result => {
+                    this.userSignedIn = result;
+                } 
+            );
+    }
+
+    public isUserSignedIn() {
+        return this.userSignedIn;        
     }
 
 }

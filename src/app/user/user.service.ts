@@ -1,12 +1,17 @@
 import {ParseWrapper} from '../parse/parse.wrapper';
 import {Deferred} from '../utils/util.deferred';
 import {UserModel} from './user.model';
+import { Subject }    from 'rxjs/Subject';
 
 export class UserService extends ParseWrapper{
 
+
+    private userLoggedInSource = new Subject<boolean>();
+    public userLoggedIn = this.userLoggedInSource.asObservable();
+
     constructor(){
         super("User");
-    }
+    }    
 
     public save(user: UserModel): Promise<any> {
         let deferred = new Deferred();
@@ -28,6 +33,7 @@ export class UserService extends ParseWrapper{
         this.Parse.User
             .logIn(username, password)
                 .then((user) => {
+                    this.userLoggedInSource.next(true);
                     deferred.resolve(user);
                 },
                 (err)=>{                    
@@ -88,7 +94,6 @@ export class UserService extends ParseWrapper{
     }
 
     public currentUser(): any {
-        console.log("current user is " + this.getCurrentUser())
         if (this.getCurrentUser()) {
             return this.getCurrentUser().attributes;
         } else {
@@ -100,6 +105,7 @@ export class UserService extends ParseWrapper{
      * Kills the session
      */
     public logOut(): any{
+        this.userLoggedInSource.next(false);
         return this.Parse.User.logOut();
     }
     

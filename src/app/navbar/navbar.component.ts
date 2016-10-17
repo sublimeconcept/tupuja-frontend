@@ -1,7 +1,7 @@
-import {Component, OnInit, OnDestroy}       from '@angular/core';
-import {UserService}                        from '../user/user.service';
-import {AlertService}                       from '../alert/alert.service';
-import { Subscription }                     from 'rxjs/Subscription';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { UserService } from '../user/user.service';
+import { AlertService } from '../alert/alert.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
     selector: 'navbar',
@@ -11,39 +11,47 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
     private userSignedIn: boolean = false;
     subscription: Subscription;
-    
+    private currentUser: any = {};
+
     constructor(private _userService: UserService, private alertService: AlertService) {
+        let user = _userService.getCurrentUser();
+        if(user){
+            this.currentUser = user;
+            this.userSignedIn = true;
+        }
     }
 
-    public logOut(){        
-        if(this._userService.getCurrentUser()){
+    public logOut() {
+        if (this._userService.getCurrentUser()) {
             this.alertService.success("Hasta luego");
             this._userService.logOut();
         }
     }
 
-    public ngOnInit(){
+    public ngOnInit() {
         this.determineUserSignedIn();
     }
 
-    public ngOnDestroy(){
+    public ngOnDestroy() {
         this.subscription.unsubscribe();
+        this.currentUser = null;
+        this.userSignedIn = false;
     }
 
-    public currentUser() {
-        return this._userService.currentUser();
-    }
 
-    public determineUserSignedIn(){
-        this.subscription = this._userService.userLoggedIn.subscribe( 
-                result => {
-                    this.userSignedIn = result;
-                } 
-            );
+    public determineUserSignedIn() {
+        this.subscription = this._userService.userLoggedIn.subscribe(
+            user => {
+                if (user) {
+                    this.currentUser = user;
+                    this.userSignedIn = true;
+                }
+            }
+        );
     }
 
     public isUserSignedIn() {
-        return this.userSignedIn;        
+        return this.userSignedIn;
     }
 
 }

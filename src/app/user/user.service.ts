@@ -6,12 +6,20 @@ import { Subject }    from 'rxjs/Subject';
 export class UserService extends ParseWrapper{
 
 
-    private userLoggedInSource = new Subject<boolean>();
+    private userLoggedInSource = new Subject<any>();
     public userLoggedIn = this.userLoggedInSource.asObservable();
 
     constructor(){
         super("User");
-    }    
+        //this.determineUserLoggedIn();
+    }
+
+    private determineUserLoggedIn(){        
+        let user = this.getCurrentUser();
+        if(user){
+            this.userLoggedInSource.next(user);
+        }
+    }
 
     public save(user: UserModel): Promise<any> {
         let deferred = new Deferred();
@@ -33,7 +41,7 @@ export class UserService extends ParseWrapper{
         this.Parse.User
             .logIn(username, password)
                 .then((user) => {
-                    this.userLoggedInSource.next(true);
+                    this.determineUserLoggedIn();
                     deferred.resolve(user);
                 },
                 (err)=>{                    
@@ -105,7 +113,7 @@ export class UserService extends ParseWrapper{
      * Kills the session
      */
     public logOut(): any{
-        this.userLoggedInSource.next(false);
+        this.userLoggedInSource.next(null);
         return this.Parse.User.logOut();
     }
     

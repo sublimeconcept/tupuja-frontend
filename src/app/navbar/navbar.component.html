@@ -36,15 +36,17 @@
         <button type="submit" class="btn btn-default">Submit</button>
       </form-->
       <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Profile <span class="caret"></span></a>
+        <li *ngIf="!isUserSignedIn()"><a routerLink="/login">Iniciar Sesión</a></li>
+        <li *ngIf="!isUserSignedIn()"><a routerLink="/register">Registrarse</a></li>
+        <li *ngIf="isUserSignedIn()" class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mi Perfil <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a routerLink="/profile">User</a></li>
+            <li><a routerLink="/profile">{{ currentUser.attributes.firstName }} {{ currentUser.attributes.lastName }}</a></li>
             <!--li><a href="#">Another action</a></li-->
             <!--li><a href="#">Something else here</a></li-->
             <li role="separator" class="divider"></li>
             <li><a href="">TuPuja Dashboard</a></li>
-            <li><a href="">Logout</a></li>
+            <li *ngIf="isUserSignedIn()"><a href="" (click)="logOut()">Logout</a></li>
           </ul>
         </li>
       </ul>

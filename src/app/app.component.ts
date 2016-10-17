@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import {BidService} from './bid/bid.service';
 import {UserService} from './user/user.service';
-
 
 @Component({
   selector: 'my-app',
@@ -9,7 +7,7 @@ import {UserService} from './user/user.service';
   styleUrls: ['app.component.css']
 })
 export class AppComponent { 
-  
+
   constructor(private userService: UserService){
   }
 

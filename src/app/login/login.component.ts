@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
     constructor(
         private router: Router,
         private authenticationService: AuthenticationService,
-        private alertService: AlertService) { }
+        private alertService: AlertService) { console.log("testing master push"); }
  
     ngOnInit() {
         // reset login status

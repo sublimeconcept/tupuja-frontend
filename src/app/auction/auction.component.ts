@@ -25,19 +25,28 @@ export class AuctionComponent implements OnInit, OnDestroy{
     }
 
     public bid() {
-        this.bidService.bidAuction(this.currentUser, this.auction).then(
-            (bid) => {
-                // THIS SHOULD OCCUR IN PARSE SERVER
-                this.auction.increment("bids");
-                this.auction.increment("currentPrice", 0.01);
-                this.auction.save();
-                this.alertService.success("Subastado con éxito!");
-                // THIS SHOULD OCCUR IN PARSE SERVER
-            }).catch(
-                (error) => {
-                    this.alertService.error(error.message);
-                }
-            );
+        this.currentUser.fetch(); // REMOTE THIS WHEN WE HAVE A WAY OF ADDING CREDITS
+        console.log("this.currentUser.get('credits') = " + this.currentUser.get('credits'));
+        if ( this.currentUser.get('credits') <= 0 ) {
+            this.alertService.error("No tienes suficientes créditos.");
+        } else {
+            this.bidService.bidAuction(this.currentUser, this.auction).then(
+                (bid) => {
+                    // THIS SHOULD OCCUR IN PARSE SERVER
+                    this.currentUser.increment('credits', -1);
+                    this.currentUser.save();
+                    this.auction.increment("bids");
+                    this.auction.increment("currentPrice", 0.01);
+                    this.auction.save();
+                    // THIS SHOULD OCCUR IN PARSE SERVER
+                    this.currentUser.fetch();
+                    this.alertService.success("Subastado con éxito!");
+                }).catch(
+                    (error) => {
+                        this.alertService.error(error.message);
+                    }
+                );
+        }
     }
 
     public ngOnInit() {

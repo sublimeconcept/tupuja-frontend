@@ -12,7 +12,7 @@ export class AutionListComponent {
     constructor(private auctionService: AuctionService){
         this.auctionService.getAuctions()
             .then((auctions) => {
-                this.auctions = this.auctionService.extractData(auctions);
+                this.auctions = auctions;
             })
             .catch((error) => console.error(error))
     }

@@ -5,7 +5,7 @@
         <div class="caption">
           <h3>{{auction.get('name')}}</h3>
           <p>
-            Precio Actual: ${{ auction.get('currentPrice') }}
+            Precio Actual: {{ auction.get('currentPrice') | currency:"USD":2 }}
           </p>
           <p>Subastas: {{ auction.get('bids') }}</p>
           <countdown units="Days | Hours | Minutes | Seconds" [date]="auction.get('endDate')"></countdown>

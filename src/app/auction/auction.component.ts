@@ -32,13 +32,14 @@ export class AuctionComponent implements OnInit, OnDestroy{
         } else {
             this.bidService.bidAuction(this.currentUser, this.auction).then(
                 (bid) => {
-                    // THIS SHOULD OCCUR IN PARSE SERVER
+                    // BEGIN: THIS SHOULD OCCUR IN PARSE SERVER
                     this.currentUser.increment('credits', -1);
                     this.currentUser.save();
                     this.auction.increment("bids");
                     this.auction.increment("currentPrice", 0.01);
                     this.auction.save();
-                    // THIS SHOULD OCCUR IN PARSE SERVER
+                    // END: THIS SHOULD OCCUR IN PARSE SERVER
+                    this.auction.fetch();
                     this.currentUser.fetch();
                     this.alertService.success("Subastado con éxito!");
                 }).catch(

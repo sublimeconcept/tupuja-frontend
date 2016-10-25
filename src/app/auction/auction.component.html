@@ -4,9 +4,12 @@
         <img src="https://dummyimage.com/242x200/fafafa/000000" alt="dummy-img">
         <div class="caption">
           <h3>{{auction.get('name')}}</h3>
-          <p>Some description</p>
+          <p>
+            Precio Actual: ${{ auction.get('currentPrice') }}
+          </p>
+          <p>Subastas: {{ auction.get('bids') }}</p>
           <countdown units="Days | Hours | Minutes | Seconds" [date]="auction.get('endDate')"></countdown>
-          <p><button class="btn btn-primary" role="button" (click)="bid()">Bid</button> <a href="#" class="btn btn-default" role="button">Button</a></p>
+          <p><button class="btn btn-primary" role="button" (click)="bid()">Subastar</button></p>
         </div>
       </div>
     </div>

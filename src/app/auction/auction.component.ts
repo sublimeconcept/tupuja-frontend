@@ -13,7 +13,7 @@ export class AuctionComponent implements OnInit, OnDestroy{
     private userSignedIn: boolean = false;
     subscription: Subscription;
     private currentUser: any = {};
-    
+
     @Input() private auction: any;
 
     constructor(private _userService: UserService, private alertService: AlertService, private bidService: BidService) {
@@ -27,7 +27,12 @@ export class AuctionComponent implements OnInit, OnDestroy{
     public bid() {
         this.bidService.bidAuction(this.currentUser, this.auction).then(
             (bid) => {
+                // THIS SHOULD OCCUR IN PARSE SERVER
+                this.auction.increment("bids");
+                this.auction.increment("currentPrice", 0.01);
+                this.auction.save();
                 this.alertService.success("Subastado con éxito!");
+                // THIS SHOULD OCCUR IN PARSE SERVER
             }).catch(
                 (error) => {
                     this.alertService.error(error.message);

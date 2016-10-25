@@ -13,22 +13,6 @@ export class BidService extends ParseWrapper{
         super("Bid");
     }
 
-    /**
-     * Get all Bids from Parse Server
-     */
-    public getBids(): Promise<any>{
-        let deferred = new Deferred();
-
-        super.query().find().then( (results) => {
-            deferred.resolve(results);
-        },
-        (error) => {
-            deferred.reject(error);
-        });
-
-        return deferred.promise;
-    }
-
     public bidAuction(user, auction): Promise<any>{
         let newBid = this.newModel();
         let deferred = new Deferred();

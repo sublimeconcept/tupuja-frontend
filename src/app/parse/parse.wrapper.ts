@@ -25,6 +25,10 @@ export class ParseWrapper {
         return this.klassModel;
     }
 
+    public newModel() {
+        return new this.klassModel;
+    }
+
     public extractData(_data: any): any[] {
         let _collection: any[] = [];
         for (let _dataObject of _data) {

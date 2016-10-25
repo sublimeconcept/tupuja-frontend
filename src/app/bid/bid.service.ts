@@ -29,4 +29,17 @@ export class BidService extends ParseWrapper{
         return deferred.promise;
     }
 
+    public bidAuction(user, auction): Promise<any>{
+        let newBid = this.newModel();
+        let deferred = new Deferred();
+        newBid.set("user", user);
+        newBid.set("auction", auction);
+        newBid.save().then(
+            function(bid) { deferred.resolve(user); },
+            function(error) { deferred.reject(error); }
+        );
+
+        return deferred.toPromise();
+    }
+
 }

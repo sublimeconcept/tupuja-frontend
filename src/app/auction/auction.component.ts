@@ -37,6 +37,9 @@ export class AuctionComponent implements OnInit, OnDestroy{
                     this.currentUser.save();
                     this.auction.increment("bids");
                     this.auction.increment("currentPrice", 0.01);
+                    let newTime: Date = this.auction.get("endDate");
+                    newTime.setMinutes(newTime.getMinutes() + 1);
+                    this.auction.set("endDate", newTime);
                     this.auction.save();
                     // END: THIS SHOULD OCCUR IN PARSE SERVER
                     this.auction.fetch();

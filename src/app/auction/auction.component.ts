@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
-import { AlertService } from '../alert/alert.service';
 import { UserService } from '../user/user.service';
 import { BidService } from '../bid/bid.service';
+import { FlashMessagesService } from 'angular2-flash-messages';
 
 @Component({
     selector: "auction",
@@ -11,12 +11,14 @@ import { BidService } from '../bid/bid.service';
 export class AuctionComponent implements OnInit, OnDestroy{
 
     private userSignedIn: boolean = false;
-    subscription: Subscription;
+    private subscription: Subscription;
     private currentUser: any = {};
 
     @Input() private auction: any;
 
-    constructor(private _userService: UserService, private alertService: AlertService, private bidService: BidService) {
+    constructor(private _userService: UserService,
+                private bidService: BidService,
+                private _flashMessagesService: FlashMessagesService) {
         let user = _userService.getCurrentUser();
         if(user){
             this.currentUser = user;
@@ -28,7 +30,7 @@ export class AuctionComponent implements OnInit, OnDestroy{
         this.currentUser.fetch(); // REMOTE THIS WHEN WE HAVE A WAY OF ADDING CREDITS
         console.log("this.currentUser.get('credits') = " + this.currentUser.get('credits'));
         if ( this.currentUser.get('credits') <= 0 ) {
-            this.alertService.error("No tienes suficientes créditos.");
+            this._flashMessagesService.show("No tienes suficientes créditos.", { cssClass: 'alert-danger', timeout: 5000 });
         } else {
             this.bidService.bidAuction(this.currentUser, this.auction).then(
                 (bid) => {
@@ -44,13 +46,18 @@ export class AuctionComponent implements OnInit, OnDestroy{
                     // END: THIS SHOULD OCCUR IN PARSE SERVER
                     this.auction.fetch();
                     this.currentUser.fetch();
-                    this.alertService.success("Subastado con éxito!");
+                    this._flashMessagesService.show("Subasta Exitosa", { cssClass: 'alert-success', timeout: 2000 });
                 }).catch(
                     (error) => {
-                        this.alertService.error(error.message);
+                        this._flashMessagesService.show(error.message, { cssClass: 'alert-danger', timeout: 5000 });
+
                     }
                 );
         }
+    }
+
+    public onAuctionFinished(event){
+        console.log(event);
     }
 
     public ngOnInit() {

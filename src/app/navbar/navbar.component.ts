@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserService } from '../user/user.service';
-import { AlertService } from '../alert/alert.service';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
@@ -13,7 +12,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     subscription: Subscription;
     private currentUser: any = {};
 
-    constructor(private _userService: UserService, private alertService: AlertService) {
+    constructor(private _userService: UserService) {
         let user = _userService.getCurrentUser();
         if(user){
             this.currentUser = user;
@@ -23,7 +22,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
     public logOut() {
         if (this._userService.getCurrentUser()) {
-            this.alertService.success("Hasta luego");
             this._userService.logOut();
         }
     }

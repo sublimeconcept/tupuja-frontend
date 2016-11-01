@@ -5,7 +5,6 @@ import { AppComponent } from './app.component';
 import { AuctionComponent } from './auction/auction.component';
 import {AuctionService} from './auction/auction.service';
 import {AuthenticationService} from './authentication/authentication.service';
-import {AlertService} from './alert/alert.service';
 import {AlertComponent} from './alert/alert.component';
 import { Deferred } from './utils/util.deferred';
 import {routing} from './app.routing';
@@ -19,6 +18,8 @@ import {AutionListComponent} from './auction/auction-list.component';
 import {CountdownComponent} from './generics/countdown.component';
 import {RegisterComponent} from './register/register.component';
 import {LoginComponent} from './login/login.component';
+
+import { FlashMessagesModule } from 'angular2-flash-messages';
 
 const declarations = [
   AppComponent, 
@@ -36,15 +37,15 @@ const declarations = [
 const imports = [
   BrowserModule,
   routing,
-  FormsModule
+  FormsModule,
+  FlashMessagesModule
 ];
 
 const providers = [
   BidService, 
   AuctionService, 
   UserService,
-  AuthenticationService,
-  AlertService
+  AuthenticationService
 ]
 
 @NgModule({

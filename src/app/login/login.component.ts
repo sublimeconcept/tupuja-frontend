@@ -1,7 +1,6 @@
 import { Component, OnInit }        from '@angular/core';
 import { Router }                   from '@angular/router';
 import { AuthenticationService }    from '../authentication/authentication.service';
-import { AlertService }             from '../alert/alert.service';
 import {NgForm}                     from '@angular/forms';
  
 @Component({
@@ -15,7 +14,7 @@ export class LoginComponent implements OnInit {
     constructor(
         private router: Router,
         private authenticationService: AuthenticationService,
-        private alertService: AlertService) { console.log("testing master push"); }
+        ) { console.log("testing master push"); }
  
     ngOnInit() {
         // reset login status

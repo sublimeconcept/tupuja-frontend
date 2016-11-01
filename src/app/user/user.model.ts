@@ -9,6 +9,7 @@ export interface UserModel {
     password: string;
     user_type: string[];
     recomendation: string;
+    credits: number;
     refer: string;
     updatedAt: Date;
     createdAt: Date;

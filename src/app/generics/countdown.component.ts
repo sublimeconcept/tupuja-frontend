@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, EventEmitter, Output } from '@angular/core';
 
 @Component({
     selector: "countdown",
@@ -12,6 +12,10 @@ export class CountdownComponent implements OnInit, OnDestroy{
 
     private units: string[];
 
+    @Output('ended') signalFinished: EventEmitter<any> = new EventEmitter();
+
+    private timerId: any;
+
     private displayString: string;
 
     constructor() {
@@ -24,6 +28,15 @@ export class CountdownComponent implements OnInit, OnDestroy{
         }
        
         let dateDifference = this.date.getTime() - new Date().getTime();
+
+        if(dateDifference <= 0){
+            this.displayString = "";
+            this.signalFinished.emit(true);
+            if(this.timerId){
+                clearInterval(this.timerId);
+            }
+            return;
+        }
 
         let lastUnit = this.units[this.units.length - 1],
             unitConstantForMillisecs = {
@@ -71,7 +84,7 @@ export class CountdownComponent implements OnInit, OnDestroy{
     }
 
     public ngOnInit(){
-        setInterval(()=>this.displayDate(), 1);
+        this.timerId = setInterval(()=>this.displayDate(), 1);
     }
 
     public ngOnDestroy(){

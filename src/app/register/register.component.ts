@@ -1,8 +1,8 @@
 import { Component }    from '@angular/core';
 import { Router }       from '@angular/router';
-import { AlertService } from '../alert/alert.service';
 import { UserService }  from '../user/user.service';
 import {NgForm}         from '@angular/forms';
+import { FlashMessagesService } from 'angular2-flash-messages';
  
 @Component({
     templateUrl: 'register.component.html'
@@ -15,7 +15,7 @@ export class RegisterComponent {
     constructor(
         private router: Router,
         private userService: UserService,
-        private alertService: AlertService) { }
+        private _flashMessagesService: FlashMessagesService) { }
  
     register(f: NgForm) {
         this.loading = true;
@@ -30,12 +30,11 @@ export class RegisterComponent {
                     //verify its email
                     this.userService.logOut();
                     f.resetForm();
-                    this.alertService.success('Registration successful, please verify your email address.', true);
+                    this._flashMessagesService.show('Registro Exitoso, por favor verifique su correo.', { cssClass: 'alert-success', timeout: 3000 });
                     this.router.navigate(['/']);
                 }
             ).catch((error) => {
-                this.alertService.error(error.message);
-                console.error(error);
+                this._flashMessagesService.show(error.message, { cssClass: 'alert-danger', timeout: 5000 });
                 this.loading = false;
             });
         

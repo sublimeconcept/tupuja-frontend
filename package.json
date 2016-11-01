@@ -8,33 +8,34 @@
     "serve": "webpack-dev-server --inline --progress"
   },
   "dependencies": {
-    "@angular/common": "~2.0.1",
-    "@angular/compiler": "~2.0.1",
-    "@angular/core": "~2.0.1",
-    "@angular/forms": "~2.0.1",
-    "@angular/http": "~2.0.1",
-    "@angular/platform-browser": "~2.0.1",
-    "@angular/platform-browser-dynamic": "~2.0.1",
-    "@angular/router": "~3.0.1",
-    "@angular/upgrade": "~2.0.1",
+    "@angular/common": "~2.1.1",
+    "@angular/compiler": "~2.1.1",
+    "@angular/core": "~2.1.1",
+    "@angular/forms": "~2.1.1",
+    "@angular/http": "~2.1.1",
+    "@angular/platform-browser": "~2.1.1",
+    "@angular/platform-browser-dynamic": "~2.1.1",
+    "@angular/router": "~3.1.1",
+    "@angular/upgrade": "~2.1.1",
+    "angular2-flash-messages": "^1.0.3",
     "core-js": "2.4.1",
     "jquery": "^3.1.1",
     "parse": "^1.9.2",
     "reflect-metadata": "0.1.8",
     "rxjs": "5.0.0-beta.12",
-    "zone.js": "0.6.23"
+    "zone.js": "0.6.26"
   },
   "devDependencies": {
     "@types/jquery": "^2.0.33",
     "angular2-template-loader": "0.5.0",
-    "cross-env": "2.0.1",
+    "cross-env": "3.1.3",
     "css-loader": "^0.25.0",
-    "html-webpack-plugin": "2.22.0",
+    "html-webpack-plugin": "2.24.0",
     "raw-loader": "0.5.1",
-    "ts-loader": "0.8.2",
-    "typescript": "2.0.2",
-    "typings": "1.3.3",
-    "webpack": "1.13.2",
-    "webpack-dev-server": "1.15.2"
+    "ts-loader": "0.9.5",
+    "typescript": "2.0.6",
+    "typings": "1.4.0",
+    "webpack": "1.13.3",
+    "webpack-dev-server": "1.16.2"
   }
 }

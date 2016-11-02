@@ -1,29 +1,30 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input,ChangeDetectionStrategy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { UserService } from '../user/user.service';
 import { BidService } from '../bid/bid.service';
+import { AuctionService } from  './auction.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
 
 @Component({
     selector: "auction",
-    templateUrl: "./auction.component.html",
+    templateUrl: "./auction.component.html"
+    //,
+    //changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AuctionComponent implements OnInit, OnDestroy{
 
     private userSignedIn: boolean = false;
     private subscription: Subscription;
     private currentUser: any = {};
+    private auctionSubscription: any;
 
-    @Input() private auction: any;
+    @Input('auction') private auction;
 
-    constructor(private _userService: UserService,
+    constructor(private _auctionService: AuctionService,
+                private _userService: UserService,
                 private bidService: BidService,
                 private _flashMessagesService: FlashMessagesService) {
-        let user = _userService.getCurrentUser();
-        if(user){
-            this.currentUser = user;
-            this.userSignedIn = true;
-        }
+        
     }
 
     public bid() {
@@ -56,18 +57,34 @@ export class AuctionComponent implements OnInit, OnDestroy{
         }
     }
 
-    public onAuctionFinished(event){
+    private onAuctionFinished(event){
         console.log(event);
     }
 
+    private setCurrentUser(){
+        let user = this._userService.getCurrentUser();
+        if(user){
+            this.currentUser = user;
+            this.userSignedIn = true;
+        }
+    }
+
     public ngOnInit() {
+        this.setCurrentUser();
         this.determineUserSignedIn();
+        this.auctionSubscription = this._auctionService
+                                        .getAuctionSubscription(this.auction.id)
+                                        .subscribe();
+        this.auctionSubscription.on('update', (object)=> {
+            this.auction = object;
+        });
     }
 
     public ngOnDestroy() {
         this.subscription.unsubscribe();
         this.currentUser = null;
         this.userSignedIn = false;
+        this.auctionSubscription.unsubscribe();
     }
 
 

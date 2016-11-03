@@ -1,12 +1,12 @@
-import { Component, OnInit, OnDestroy, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, EventEmitter, Output,OnChanges, SimpleChange } from '@angular/core';
 
 @Component({
     selector: "countdown",
     templateUrl: "./countdown.component.html",
 })
-export class CountdownComponent implements OnInit, OnDestroy{
+export class CountdownComponent implements OnInit, OnDestroy, OnChanges {
     
-    @Input() date: Date;
+    @Input('date') date: Date;
 
     @Input('units') unitsAsString: string;
 
@@ -22,13 +22,25 @@ export class CountdownComponent implements OnInit, OnDestroy{
         this.units = [];
     }
 
+    ngOnChanges(changes: {[propKey: string]: SimpleChange}){
+        
+        debugger;
+        let changedProp = changes['date'];
+        let newDate: Date =   changedProp.currentValue;
+        let dateDifference = newDate.getTime() - new Date().getTime();
+        if(dateDifference > 0){
+            this.date = newDate;
+            this.startTimer();
+        }
+        
+    }
+
     private displayDate(): void{
         if (typeof this.unitsAsString === 'string') {
             this.units = this.unitsAsString.split('|');
         }
        
         let dateDifference = this.date.getTime() - new Date().getTime();
-
         if(dateDifference <= 0){
             this.displayString = "";
             this.signalFinished.emit(true);
@@ -84,6 +96,10 @@ export class CountdownComponent implements OnInit, OnDestroy{
     }
 
     public ngOnInit(){
+        this.startTimer();
+    }
+
+    private startTimer(){
         this.timerId = setInterval(()=>this.displayDate(), 1);
     }
 

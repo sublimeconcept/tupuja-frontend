@@ -1,11 +1,13 @@
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var isProd = process.env.APP_ENVIRONMENT == 'production';
 
 module.exports = {
 
   entry: './src/main.ts',
   output: {
     path: './dist',
+    publicPath: isProd ? '/' : 'http://localhost:8080/',
     filename: 'app.bundle.js'
   },
   module: {

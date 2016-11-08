@@ -23,8 +23,6 @@ export class CountdownComponent implements OnInit, OnDestroy, OnChanges {
     }
 
     ngOnChanges(changes: {[propKey: string]: SimpleChange}){
-        
-        debugger;
         let changedProp = changes['date'];
         let newDate: Date =   changedProp.currentValue;
         let dateDifference = newDate.getTime() - new Date().getTime();

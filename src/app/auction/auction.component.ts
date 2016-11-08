@@ -13,9 +13,7 @@ import { FlashMessagesService } from 'angular2-flash-messages';
 })
 export class AuctionComponent implements OnInit, OnDestroy{
 
-    private userSignedIn: boolean = false;
-    private subscription: Subscription;
-    private currentUser: any = {};
+    
     private auctionSubscription: any;
 
     @Input('auction') private auction;
@@ -24,20 +22,18 @@ export class AuctionComponent implements OnInit, OnDestroy{
                 private _userService: UserService,
                 private bidService: BidService,
                 private _flashMessagesService: FlashMessagesService) {
-        
     }
 
     public bid() {
-        this.currentUser.fetch(); // REMOTE THIS WHEN WE HAVE A WAY OF ADDING CREDITS
-        console.log("this.currentUser.get('credits') = " + this.currentUser.get('credits'));
-        if ( this.currentUser.get('credits') <= 0 ) {
+        //this.currentUser.fetch(); // REMOTE THIS WHEN WE HAVE A WAY OF ADDING CREDITS
+        if ( this._userService.getCurrentUser().get('credits') <= 0 ) {
             this._flashMessagesService.show("No tienes suficientes créditos.", { cssClass: 'alert-danger', timeout: 5000 });
         } else {
-            this.bidService.bidAuction(this.currentUser, this.auction).then(
+            this.bidService.bidAuction(this._userService.getCurrentUser(), this.auction).then(
                 (bid) => {
                     // BEGIN: THIS SHOULD OCCUR IN PARSE SERVER
-                    this.currentUser.increment('credits', -1);
-                    this.currentUser.save();
+                    this._userService.getCurrentUser().increment('credits', -1);
+                    this._userService.getCurrentUser().save();
                     this.auction.increment("bids");
                     this.auction.increment("currentPrice", 0.01);
                     let newTime: Date = this.auction.get("endDate");
@@ -46,7 +42,7 @@ export class AuctionComponent implements OnInit, OnDestroy{
                     this.auction.save();
                     // END: THIS SHOULD OCCUR IN PARSE SERVER
                     this.auction.fetch();
-                    this.currentUser.fetch();
+                    //this.currentUser.fetch();
                     this._flashMessagesService.show("Subasta Exitosa", { cssClass: 'alert-success', timeout: 2000 });
                 }).catch(
                     (error) => {
@@ -59,19 +55,9 @@ export class AuctionComponent implements OnInit, OnDestroy{
 
     private onAuctionFinished(event){
         console.log(event);
-    }
-
-    private setCurrentUser(){
-        let user = this._userService.getCurrentUser();
-        if(user){
-            this.currentUser = user;
-            this.userSignedIn = true;
-        }
-    }
+    }    
 
     public ngOnInit() {
-        this.setCurrentUser();
-        this.determineUserSignedIn();
         this.auctionSubscription = this._auctionService
                                         .getAuctionSubscription(this.auction.id)
                                         .subscribe();
@@ -81,26 +67,7 @@ export class AuctionComponent implements OnInit, OnDestroy{
     }
 
     public ngOnDestroy() {
-        this.subscription.unsubscribe();
-        this.currentUser = null;
-        this.userSignedIn = false;
         this.auctionSubscription.unsubscribe();
-    }
-
-
-    public determineUserSignedIn() {
-        this.subscription = this._userService.userLoggedIn.subscribe(
-            user => {
-                if (user) {
-                    this.currentUser = user;
-                    this.userSignedIn = true;
-                }
-            }
-        );
-    }
-
-    public isUserSignedIn() {
-        return this.userSignedIn;
     }
 
 }

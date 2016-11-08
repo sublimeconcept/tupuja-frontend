@@ -9,8 +9,8 @@
           </p>
           <p>Subastas: {{ auction.get('bids') }}</p>
           <countdown units="Days | Hours | Minutes | Seconds" (ended)="onAuctionFinished($event)" [date]="auction.get('endDate')"></countdown>
-          <p><button *ngIf="userSignedIn" class="btn btn-primary" role="button" (click)="bid()">Subastar</button></p>
-          <p><a *ngIf="!userSignedIn" routerLink="/register">Registrarse para subastar</a></p>
+          <p><button *ngIf="_userService.isUserLoggedIn() | async" class="btn btn-primary" role="button" (click)="bid()">Subastar</button></p>
+          <p *ngIf="!(_userService.isUserLoggedIn() | async)"><a routerLink="/register">Registrarse</a> o <a routerLink="/login">inicie sesión</a> para subastar</p>
         </div>
       </div>
     </div>

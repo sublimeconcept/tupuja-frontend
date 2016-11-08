@@ -2,22 +2,21 @@ import {ParseWrapper} from '../parse/parse.wrapper';
 import {Deferred} from '../utils/util.deferred';
 import {UserModel} from './user.model';
 import { Subject }    from 'rxjs/Subject';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 export class UserService extends ParseWrapper{
 
-
-    private userLoggedInSource = new Subject<any>();
-    public userLoggedIn = this.userLoggedInSource.asObservable();
+    private _loggedIn = new BehaviorSubject(false);
 
     constructor(){
         super("User");
-        //this.determineUserLoggedIn();
+        this.determineUserLoggedIn();
     }
 
     private determineUserLoggedIn(){        
         let user = this.getCurrentUser();
         if(user){
-            this.userLoggedInSource.next(user);
+            this._loggedIn.next(true);
         }
     }
 
@@ -41,7 +40,7 @@ export class UserService extends ParseWrapper{
         this.Parse.User
             .logIn(username, password)
                 .then((user) => {
-                    this.determineUserLoggedIn();
+                    this._loggedIn.next(true);
                     deferred.resolve(user);
                 },
                 (err)=>{                    
@@ -109,12 +108,20 @@ export class UserService extends ParseWrapper{
         }
     }
 
+    public isUserLoggedIn(){
+        return this._loggedIn;
+    }
+
     /**
      * Kills the session
      */
     public logOut(): any{
-        this.userLoggedInSource.next(null);
+        this._loggedIn.next(false);
         return this.Parse.User.logOut();
+    }
+
+    public hasEnoughCredit(){
+        return this.getCurrentUser().get('credits') > 0;
     }
     
 

@@ -1,3 +1,4 @@
-<div *ngIf="auctions.length > 0" class="row outstanding--auction">
+<div *ngIf="auctions.length > 0" class="row text-center">
+  <h2>Subasta del Momento</h2>
   <outstanding-auction *ngFor="let auction of auctions" [auction]="auction"></outstanding-auction>
 </div>

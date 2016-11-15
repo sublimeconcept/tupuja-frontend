@@ -8,8 +8,7 @@ import { AuctionComponent } from  '../auction/auction.component';
 
 @Component({
     selector: "outstanding-auction",
-    templateUrl: "./outstanding-auction.component.html",
-    styleUrls: ['outstanding-auction.component.css']
+    templateUrl: "./outstanding-auction.component.html"
 })
 export class OutstandingAuctionComponent extends AuctionComponent implements OnInit, OnDestroy {
     constructor(private __auctionService: AuctionService,

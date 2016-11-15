@@ -3,8 +3,7 @@ import { AuctionService } from '../auction/auction.service'
 
 @Component({
     selector: "auction-slider",
-    templateUrl: "./auction-slider.component.html",
-    styleUrls: ['auction-slider.component.css']
+    templateUrl: "./auction-slider.component.html"
 })
 export class AutionSliderComponent {
 

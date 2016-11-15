@@ -15,7 +15,8 @@ import {NavbarComponent} from './navbar/navbar.component';
 import {HomeComponent} from './home/home.component';
 import {ProfileComponent} from './profile/profile.component';
 import {AutionListComponent} from './auction/auction-list.component';
-import {AutionSliderComponent} from './auction/auction-slider.component';
+import {AutionSliderComponent} from './auction-slider/auction-slider.component';
+import {OutstandingAuctionComponent} from './auction-slider/outstanding-auction.component';
 import {CountdownComponent} from './generics/countdown.component';
 import {RegisterComponent} from './register/register.component';
 import {LoginComponent} from './login/login.component';
@@ -30,6 +31,7 @@ const declarations = [
   ProfileComponent,
   AutionListComponent,
   AutionSliderComponent,
+  OutstandingAuctionComponent,
   AlertComponent,
   CountdownComponent,
   RegisterComponent,

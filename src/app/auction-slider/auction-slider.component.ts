@@ -1,9 +1,10 @@
 import {Component} from '@angular/core';
-import { AuctionService } from './auction.service'
+import { AuctionService } from '../auction/auction.service'
 
 @Component({
     selector: "auction-slider",
     templateUrl: "./auction-slider.component.html",
+    styleUrls: ['auction-slider.component.css']
 })
 export class AutionSliderComponent {
 

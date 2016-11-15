@@ -1,0 +1,24 @@
+
+    <div class="col-sm-12">
+      <div class="thumbnail">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="caption">
+              <h2>Subasta del Momento</h2>
+              <h3>{{auction.get('name')}}</h3>
+              <p>Descripción: {{ auction.get('description') }}</p>
+              <p>
+                Precio Actual: {{ auction.get('currentPrice') | currency:"USD":2 }}
+              </p>
+              <p>Subastas: {{ auction.get('bids') }}</p>
+              <countdown units="Days | Hours | Minutes | Seconds" (ended)="onAuctionFinished($event)" [date]="auction.get('endDate')"></countdown>
+              <p><button *ngIf="_userService.isUserLoggedIn() | async" class="btn btn-primary" role="button" (click)="bid()">Subastar</button></p>
+              <p *ngIf="!(_userService.isUserLoggedIn() | async)"><a routerLink="/register">Registrarse</a> o <a routerLink="/login">inicie sesión</a> para subastar</p>
+            </div>
+          </div>
+          <div class="col-sm-6 outstanding--image">
+            <img src="https://dummyimage.com/242x200/fafafa/000000" alt="dummy-img">
+          </div>
+        </div>
+      </div>
+    </div>

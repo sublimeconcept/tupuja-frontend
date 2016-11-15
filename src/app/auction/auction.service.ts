@@ -21,6 +21,17 @@ export class AuctionService extends ParseWrapper{
         return deferred.promise;
     }
 
+    getOutstandingAuction(): Promise<any>{
+        let deferred = new Deferred();
+        this.query().find().then( (auctions) => {
+            deferred.resolve(auctions);
+        },
+        (result,error) => {
+            deferred.reject(error);
+        });
+        return deferred.promise;
+    }
+
     getAuction(auction_id: string): Promise<any> {
         debugger;
         let deferred = new Deferred();

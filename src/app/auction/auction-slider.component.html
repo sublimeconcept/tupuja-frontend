@@ -1,0 +1,3 @@
+<div *ngIf="auctions.length > 0" class="row">
+  <auction *ngFor="let auction of auctions" [auction]="auction"></auction>
+</div>

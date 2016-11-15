@@ -10,7 +10,7 @@ export class AutionSliderComponent {
     private auctions: any[] = [];
 
     constructor(private auctionService: AuctionService){
-        this.auctionService.getAuctions()
+        this.auctionService.getOutstandingAuctions()
             .then((auctions) => {
                 this.auctions = auctions;
             })

@@ -2,6 +2,8 @@ import { ParseWrapper } from '../parse/parse.wrapper';
 import { Deferred } from '../utils/util.deferred';
 
 export class AuctionService extends ParseWrapper{
+    OUTSTANDING_AUCTIONS_LIMIT = 1;
+
     constructor(){
         super("Auction");
     }
@@ -21,10 +23,12 @@ export class AuctionService extends ParseWrapper{
         return deferred.promise;
     }
 
-    getOutstandingAuction(): Promise<any>{
+    getOutstandingAuctions(): Promise<any>{
         let deferred = new Deferred();
-        this.query().find().then( (auctions) => {
-            deferred.resolve(auctions);
+        this.query().descending("bids")
+            .limit(this.OUTSTANDING_AUCTIONS_LIMIT)
+            .find().then( (auctions) => {
+                deferred.resolve(auctions);
         },
         (result,error) => {
             deferred.reject(error);

@@ -15,11 +15,14 @@ module.exports = {
       {test: /\.component.ts$/, loader: 'ts!angular2-template'},
       {test: /\.ts$/, exclude: /\.component.ts$/, loader: 'ts'},
       {test: /\.html$/, loader: 'raw'},
-      {test: /\.css$/, loader: 'raw'}
+      {test: /\.scss$/, loaders: ['raw-loader', 'sass-loader'] },
+      {test: /\.(woff2?|ttf|eot|svg)$/, loader: 'url?limit=10000' },
+      {test: /bootstrap\/dist\/js\/umd\//, loader: 'imports?jQuery=jquery' },
+      { test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/, loader : 'file-loader'},
     ]
   },
   resolve: {
-    extensions: ['', '.js', '.ts', '.html', '.css']
+    extensions: ['', '.js', '.ts', '.html', '.css', '.scss']
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -29,6 +32,11 @@ module.exports = {
       app: {
         environment: JSON.stringify(process.env.APP_ENVIRONMENT || 'development')
       }
+    }),
+    new webpack.ProvidePlugin({
+        jQuery: 'jquery',
+        $: 'jquery',
+        jquery: 'jquery'
     })
 
   ],

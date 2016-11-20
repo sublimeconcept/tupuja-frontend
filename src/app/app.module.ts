@@ -5,7 +5,6 @@ import { AppComponent } from './app.component';
 import { AuctionComponent } from './auction/auction.component';
 import {AuctionService} from './auction/auction.service';
 import {AuthenticationService} from './authentication/authentication.service';
-import {AlertComponent} from './alert/alert.component';
 import { Deferred } from './utils/util.deferred';
 import {routing} from './app.routing';
 
@@ -32,7 +31,6 @@ const declarations = [
   AutionListComponent,
   AutionSliderComponent,
   OutstandingAuctionComponent,
-  AlertComponent,
   CountdownComponent,
   RegisterComponent,
   LoginComponent

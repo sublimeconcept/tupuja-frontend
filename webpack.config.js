@@ -15,9 +15,10 @@ module.exports = {
       {test: /\.component.ts$/, loader: 'ts!angular2-template'},
       {test: /\.ts$/, exclude: /\.component.ts$/, loader: 'ts'},
       {test: /\.html$/, loader: 'raw'},
+      { test:/bootstrap-sass[\/\\]assets[\/\\]javascripts[\/\\]/, loader: 'imports?jQuery=jquery' },
       {test: /\.scss$/, loaders: ['raw-loader', 'sass-loader'] },
+      { test: /\.(ttf|eot)$/, loader: 'file' },
       {test: /\.(woff2?|ttf|eot|svg)$/, loader: 'url?limit=10000' },
-      {test: /bootstrap\/dist\/js\/umd\//, loader: 'imports?jQuery=jquery' },
       { test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/, loader : 'file-loader'},
     ]
   },

@@ -40,9 +40,9 @@ export class CountdownComponent implements OnInit, OnDestroy, OnChanges {
        
         let dateDifference = this.date.getTime() - new Date().getTime();
         if(dateDifference <= 0){
-            this.displayString = "";
-            this.signalFinished.emit(true);
+            this.displayString = "";            
             if(this.timerId){
+                this.signalFinished.emit(true);
                 clearInterval(this.timerId);
             }
             return;

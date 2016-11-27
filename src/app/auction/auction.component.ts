@@ -32,17 +32,18 @@ export class AuctionComponent implements OnInit, OnDestroy{
             this.bidService.bidAuction(this._userService.getCurrentUser(), this.auction).then(
                 (bid) => {
                     // BEGIN: THIS SHOULD OCCUR IN PARSE SERVER
-                    this._userService.getCurrentUser().increment('credits', -1);
-                    this._userService.getCurrentUser().save();
-                    this.auction.increment("bids");
-                    this.auction.increment("currentPrice", 0.01);
-                    let newTime: Date = this.auction.get("endDate");
-                    newTime.setMinutes(newTime.getMinutes() + 1);
-                    this.auction.set("endDate", newTime);
-                    this.auction.save();
+                    this._auctionService.updateAuction(this.auction);
+                    //code moved to parse server as a cloud function
+                    //this._userService.getCurrentUser().increment('credits', -1);
+                    //this._userService.getCurrentUser().save();
+                    //this.auction.increment("bids");
+                    //this.auction.increment("currentPrice", 0.01);
+                    //let newTime: Date = this.auction.get("endDate");
+                    //newTime.setMinutes(newTime.getMinutes() + 1);
+                    //this.auction.set("endDate", newTime);
+                    //this.auction.save();
                     // END: THIS SHOULD OCCUR IN PARSE SERVER
-                    this.auction.fetch();
-                    //this.currentUser.fetch();
+                    this._userService.getCurrentUser().fetch();
                     this._flashMessagesService.show("Subasta Exitosa", { cssClass: 'alert-success', timeout: 2000 });
                 }).catch(
                     (error) => {

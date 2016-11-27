@@ -12,6 +12,10 @@ export class AuctionService extends ParseWrapper{
        return this.model();
     }
 
+    updateAuction(auction): Promise<any> {
+        return this.Parse.Cloud.run('updateAuction',{ auction: auction.id });
+    }
+
     getAuctions(): Promise<any>{
         let deferred = new Deferred();
         this.query().find().then( (auctions) => {

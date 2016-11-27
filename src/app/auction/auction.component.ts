@@ -55,7 +55,10 @@ export class AuctionComponent implements OnInit, OnDestroy{
     }
 
     private onAuctionFinished(event){
-        console.log(event);
+        if(event){
+            this.auction.set("finished", true);
+            this.auction.save();
+        }
     }    
 
     public ngOnInit() {
